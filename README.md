@@ -1,38 +1,40 @@
 # Habit-Tracker
 
-A single-page habit tracker with a weekly grid, streak counters, and full persistence across reloads.
+A simple **habit tracker** with a weekly grid, streak tracking, and persistent data using localStorage.
 
-## How to run
+---
 
-No install, no build step — it's a single HTML file.
+## 🚀 Run
+
+No setup required:
+
+- Open `index.html` in your browser  
+- Or run a local server:
 
 ```bash
-# Option 1: open directly in your browser
-open index.html
-
-# Option 2: serve locally (avoids any file:// quirks)
 npx serve .
-# then visit http://localhost:3000
 
-# Option 3: Python
-python3 -m http.server 8080
-# then visit http://localhost:8080
-```
 
-**Requirements:** A modern browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+). No Node.js or npm needed.
+## ✨ Features
 
-## Stack
+- Add, edit, and delete habits  
+- Weekly grid layout (Monday → Sunday)  
+- Highlight for the current day  
+- Automatic streak tracking 🔥  
+- Navigate between weeks  
+- Past data preserved, future days disabled  
+- Full keyboard support 
+- Responsive design 
+- Data persisted using browser localStorage  
 
-Vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies, no build step. Everything lives in `index.html`. Data persists via `localStorage`.
+---
 
-## Features
+## 🧠 How It Works
 
-1. Add, rename, and delete habits
-2. Weekly grid: habits on rows, Mon–Sun across columns
-3. Today's column highlighted in amber
-4. Consecutive-day streak counter per habit
-5. Week navigation: previous, next, "This week" shortcut
-6. Past weeks show historical checkmarks; future days are disabled
-7. Full keyboard navigation (Tab, Enter, Space, Escape)
-8. Responsive from 360px phones to 1440px desktops
-9. Empty state with onboarding copy
+- Each habit is stored with a unique ID  
+- Daily progress is saved using date keys (`YYYY-MM-DD`)  
+- All data is stored in localStorage . 
+- Streak is calculated by counting consecutive completed days  
+- If today is not completed, the streak continues from previous consecutive days  
+
+---
