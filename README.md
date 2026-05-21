@@ -13,14 +13,15 @@ No setup required:
 
 ```bash
 npx serve .
+```
+---
 
-
-## ✨ Features
+## Features
 
 - Add, edit, and delete habits  
 - Weekly grid layout (Monday → Sunday)  
 - Highlight for the current day  
-- Automatic streak tracking 🔥  
+- Automatic streak tracking  
 - Navigate between weeks  
 - Past data preserved, future days disabled  
 - Full keyboard support 
@@ -29,12 +30,18 @@ npx serve .
 
 ---
 
-## 🧠 How It Works
+##  How It Works
 
 - Each habit is stored with a unique ID  
 - Daily progress is saved using date keys (`YYYY-MM-DD`)  
 - All data is stored in localStorage . 
 - Streak is calculated by counting consecutive completed days  
 - If today is not completed, the streak continues from previous consecutive days  
+
+##  Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
 
 ---
