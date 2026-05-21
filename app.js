@@ -325,5 +325,90 @@ function handleFocusOut(e) {
 }
 
 
+/* ── ACTIONS ── */
+
+function toggleCheck(ck) {
+  if (state.checks[ck]) delete state.checks[ck];
+  else state.checks[ck] = true;
+  saveChecks();
+  render();
+}
+
+function startEdit(id) {
+  state.editingId = id;
+  render();
+}
+
+function commitEdit(inp) {
+  if (!state.editingId) return;
+  const name = inp.value.trim();
+  if (name) {
+    state.habits = state.habits.map(h =>
+      h.id === state.editingId ? { ...h, name } : h
+    );
+    saveHabits();
+  }
+  state.editingId = null;
+  render();
+}
+
+function deleteHabit(id) {
+  const habit = state.habits.find(h => h.id === id);
+  if (!habit) return;
+  if (!confirm(`Delete "${habit.name}" and all its history?`)) return;
+
+  state.habits = state.habits.filter(h => h.id !== id);
+
+  // Remove all checks for this habit
+  const clean = {};
+  for (const k in state.checks) {
+    if (!k.startsWith(id + ':')) clean[k] = state.checks[k];
+  }
+  state.checks = clean;
+
+  saveHabits();
+  saveChecks();
+  render();
+}
+
+function addHabit() {
+  const inp  = document.getElementById('habitInput');
+  const name = inp.value.trim();
+  if (!name) return;
+
+  const id = `h_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+  state.habits.push({ id, name, createdAt: Date.now() });
+  saveHabits();
+
+  inp.value = '';
+  inp.focus();
+  render();
+}
+
+/* ── HEADER BUTTON LISTENERS ── */
+
+document.getElementById('addBtn').addEventListener('click', addHabit);
+
+document.getElementById('habitInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addHabit();
+});
+
+document.getElementById('btnPrev').addEventListener('click', () => {
+  state.weekOffset--;
+  render();
+});
+
+document.getElementById('btnNext').addEventListener('click', () => {
+  if (state.weekOffset < 0) {
+    state.weekOffset++;
+    render();
+  }
+});
+
+document.getElementById('btnToday').addEventListener('click', () => {
+  state.weekOffset = 0;
+  render();
+});
+
 /* ── INIT ── */
 render();
