@@ -27,12 +27,12 @@ Vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies, no build s
 
 ## Features
 
-- Add, rename, and delete habits
-- Weekly grid: habits on rows, Mon–Sun across columns
-- Today's column highlighted in amber
-- Consecutive-day streak counter per habit
-- Week navigation: previous, next, "This week" shortcut
-- Past weeks show historical checkmarks; future days are disabled
-- Full keyboard navigation (Tab, Enter, Space, Escape)
-- Responsive from 360px phones to 1440px desktops
-- Empty state with onboarding copy
+1. Add, rename, and delete habits
+2. Weekly grid: habits on rows, Mon–Sun across columns
+3. Today's column highlighted in amber
+4. Consecutive-day streak counter per habit
+5. Week navigation: previous, next, "This week" shortcut
+6. Past weeks show historical checkmarks; future days are disabled
+7. Full keyboard navigation (Tab, Enter, Space, Escape)
+8. Responsive from 360px phones to 1440px desktops
+9. Empty state with onboarding copy
