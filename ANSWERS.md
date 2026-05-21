@@ -62,6 +62,5 @@ The original hover filled the circle fully green, which made it look like the ha
 
 ## 5. Honest gap
 
-The delete confirmation uses the browser's built-in `confirm()` dialog, which is synchronous, blocks the page, and looks jarring in an otherwise smooth app. On iOS Safari it also sometimes shows the page URL in the dialog, which looks unpolished.
-
-With another day I'd replace it with an inline undo pattern: clicking delete immediately removes the habit with a brief fade-out animation, and a toast appears at the bottom for 5 seconds saying "Habit deleted — Undo." Clicking Undo restores the habit and all its check history. This is more forgiving than a modal confirmation, faster to interact with, and fits the app's visual tone. The undo state would just be a `lastDeleted = { habit, checks }` variable that gets cleared when the toast expires.
+The delete confirmation uses the browser's built-in confirm() dialog. It works, but it's the roughest part of the app — it's synchronous, blocks the page, looks out of place visually, and on iOS Safari it sometimes shows the page URL inside the dialog which looks unpolished.
+The right fix would be an inline undo pattern: clicking delete immediately removes the habit with a short fade-out, and a toast appears at the bottom for a few seconds saying "Habit deleted — Undo." Clicking undo restores everything including the full check history. It's faster to interact with, more forgiving, and fits the rest of the app's feel much better. The implementation isn't complicated either — just a lastDeleted variable holding the habit and its checks, cleared when the toast times out. I ran out of time to get there.
