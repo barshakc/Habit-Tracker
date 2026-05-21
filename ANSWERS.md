@@ -44,16 +44,19 @@ OS-native checkboxes look inconsistent across platforms and carry default UA sty
 
 ## 4. AI usage
 
-I used Claude to generate the initial structure — the full HTML skeleton, CSS grid layout, date utility functions, and localStorage persistence pattern. Here are the specific changes I made to the AI output:
+I used Claude to help with some of the boilerplate — the initial HTML skeleton, CSS grid structure, and the localStorage read/write pattern. Here are the places where I changed what it gave me:
 
-**Change 1 — Switched from innerHTML string concat with template literals to a centralized `render()` function with event delegation.**
-The AI's first version attached `addEventListener` directly to every cell and button during render, which meant re-attaching dozens of listeners on every state change. I refactored to a single `render()` that rebuilds innerHTML, with one delegated listener on the `#app` container that checks `e.target.closest('[data-toggle]')`, `[data-edit]`, and `[data-del]`. This is cleaner, avoids memory leaks from stale listeners, and makes the data flow obvious: state change → `render()` → DOM reflects state.
+**Change 1 — Event delegation instead of per-element listeners.**
+The first version attached addEventListener directly to each cell and button inside the render loop. That means every time the UI updates, you're creating and leaking dozens of listeners. I replaced that with a single delegated listener on the #app container that uses e.target.closest('[data-toggle]'), [data-edit], and [data-del] to figure out what was clicked. Cleaner, no leaks, and the data flow becomes obvious: something changes → render() runs → DOM reflects state.
 
-**Change 2 — Rewrote the streak calculation direction.**
-Claude's first implementation walked forward from the habit's creation date to count consecutive days. This is O(total history length) and breaks down for habits created months ago. I rewrote it to walk *backwards* from today: if today is checked, count it and step back; otherwise start from yesterday. This is O(streak length), handles mid-day "not yet checked" correctly, and never penalizes users who haven't ticked today's box yet.
+**Change 2 — Streak calculation walks backwards, not forwards.**
+What it gave me walked forward from the habit's creation date to count consecutive days — slow for old habits and doesn't handle gaps cleanly. I rewrote it to walk backwards from today: if today is checked, count it and step back one day at a time until there's a gap; if today isn't checked yet, start from yesterday. This way a streak you built over previous days doesn't disappear just because you haven't ticked today's box yet.
 
-**Change 3 — Replaced fixed grid column widths with `minmax`.**
-The AI used `grid-template-columns: 200px repeat(7, 60px) 70px` with fixed pixel widths. On a 360px phone, this overflows the viewport and creates horizontal scroll on the whole page. I changed the name column to `minmax(140px, 220px)` and day columns to `1fr`, then override the name column to `minmax(90px, 120px)` at narrow breakpoints. The `1fr` columns divide available space equally, so the grid always fits the viewport width.
+**Change 3 — Grid columns use minmax instead of fixed pixel widths.**
+It gave me grid-template-columns: 200px repeat(7, 60px) 70px. On a 360px phone that overflows the viewport and causes the whole page to scroll horizontally. I changed the name column to minmax(140px, 220px) and the day columns to 1fr, then tighten the name column further in the mobile media query. The 1fr columns divide whatever space is left equally, so the grid always fits the screen width.
+
+**Change 4 - Hover state on unchecked cells shows a ghost, not a filled circle.**
+The original hover filled the circle fully green, which made it look like the habit was already checked. I changed unchecked hover to show the ring at reduced opacity and slightly scaled up — a ghost preview of what clicking will do. Checked cells stay full opacity at full scale. The difference in state is now unambiguous at a glance.
 
 ---
 
