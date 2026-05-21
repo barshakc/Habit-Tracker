@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streaks — Habit Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-top">
+      <h1 class="app-title">Streaks</h1>
+      <span class="app-subtitle">habit tracker</span>
+    </div>
+    <nav class="week-nav" aria-label="Week navigation">
+      <span class="week-label" id="weekLabel"></span>
+      <button class="nav-btn" id="btnPrev" aria-label="Previous week">← Prev</button>
+      <button class="nav-btn current" id="btnToday" aria-label="Back to this week" style="display:none">This week</button>
+      <button class="nav-btn" id="btnNext" aria-label="Next week">Next →</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="add-form">
+      <input
+        class="add-input"
+        type="text"
+        id="habitInput"
+        placeholder="Add a habit — e.g. Read 30 min, Exercise, Meditate…"
+        aria-label="New habit name"
+        maxlength="80"
+      />
+      <button class="add-btn" id="addBtn">+ Add</button>
+    </div>
+    <div id="app"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
